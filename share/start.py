@@ -10,10 +10,8 @@ for repo in os.listdir("/host/repos"):
 
 open("/etc/lighttpd/lighttpd.conf", "w").write("\n\n".join(config))
 
-fd = os.popen("lighttpd -f /etc/lighttpd/lighttpd.conf")
-print(fd.read())
-fd.close()
-del fd
+with os.popen("lighttpd -f /etc/lighttpd/lighttpd.conf") as fd:
+    print(fd.read())
 
 while True:
     time.sleep(600)
